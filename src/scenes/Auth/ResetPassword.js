@@ -1,0 +1,33 @@
+import React, { Component } from 'react';
+import { View, Text, Button, TextInput } from 'react-native';
+
+import colors from '../../style/colors';
+
+export default class AuthSignUp extends Component {
+  static navigationOptions = {
+    title: 'Recuperar Senha'
+  };
+
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
+        <Text style={{ fontSize: 40, marginVertical: 30 }}>Tela de Cadastro</Text>
+        <View style={{  marginVertical: 30 }}>
+          <TextInput
+            style={{ width: 300 }}
+            placeholder="Insira seu email"
+            keyboardType="email-address"
+            onChangeText={() => {}}
+          />
+        </View>
+        <View style={{ marginVertical: 30, width: 100 }}>
+          <Button
+            title='Recuperar'
+            color={colors.button}
+            onPress={ () => this.props.navigation.goBack() }
+          />
+        </View>
+      </View>
+    );
+  }
+};
