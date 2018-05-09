@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
 
-const Reducer = () => ({
-  userName: 'Nome',
-});
+import Variables from './reducers/VariablesReducer';
 
 export default combineReducers({
-  Reducer,
+  Variables,
 });

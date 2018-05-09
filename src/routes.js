@@ -7,6 +7,14 @@ import Scheduling from './scenes/Scheduling';
 import PendingServices from './scenes/PendingServices';
 import CompletedServices from './scenes/CompletedServices';
 import Evaluation from './scenes/Evaluation';
+import SplashScreen from './scenes/SplashScreen';
+
+const SplashScreenStack = StackNavigator({
+  SplashScreen: { screen: SplashScreen, tabBar: { visible: false } },
+}, {
+  initialRouteName: 'SplashScreen',
+  headerMode: 'none',
+});
 
 const AuthStack = StackNavigator({
   AuthLogin: { screen: AuthLogin, tabBar: { visible: false } },
@@ -47,6 +55,7 @@ const AppStack = StackNavigator({
 export default SwitchNavigator({
   App: AppStack,
   Auth: AuthStack,
+  SplashScreen: SplashScreenStack,
 }, {
-  initialRouteName: 'Auth',
+  initialRouteName: 'SplashScreen',
 });
