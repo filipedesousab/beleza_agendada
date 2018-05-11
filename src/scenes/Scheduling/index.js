@@ -7,7 +7,7 @@ import DatePicker from 'react-native-datepicker'
 
 import colors from '../../style/colors';
 
-import { changeService, changeDate } from './actions/schedulingActions';
+import { changeService, changeDate, registerScheduling } from './actions/schedulingActions';
 
 class Scheduling extends Component {
   static navigationOptions = {
@@ -70,7 +70,7 @@ class Scheduling extends Component {
             style={{ flex: 1 }}
             title='Agendar'
             color={colors.button}
-            onPress={() => false}
+            onPress={this.props.registerScheduling}
           />
         </View>
       </View>
@@ -83,6 +83,6 @@ const mapStateToProps = state => ({
   schedulingDate: state.Scheduling.schedulingDate,
 });
 
-const mapDispatchToProps = dispach => bindActionCreators({ changeService, changeDate }, dispach);
+const mapDispatchToProps = dispach => bindActionCreators({ changeService, changeDate, registerScheduling }, dispach);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scheduling);
