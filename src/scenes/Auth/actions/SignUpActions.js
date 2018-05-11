@@ -35,27 +35,27 @@ export const register = () => (dispatch, getState) => {
   } = getState().SignUp;
 
   if (signUpName === '') {
-    Alert.alert('Faxinow informa:', 'Campo de nome vazio.');
+    Alert.alert('Beleza Agendada informa:', 'Campo de nome vazio.');
   } else if (signUpName.length < 3) {
-    Alert.alert('Faxinow informa:', 'Campo de nome deve conter no mínimo 3(três) caracteres.');
+    Alert.alert('Beleza Agendada informa:', 'Campo de nome deve conter no mínimo 3(três) caracteres.');
   } else if (signUpLastname === '') {
-    Alert.alert('Faxinow informa:', 'Campo de sobrenome vazio.');
+    Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome vazio.');
   } else if (signUpLastname.length < 3) {
-    Alert.alert('Faxinow informa:', 'Campo de sobrenome deve conter no mínimo 3(três) caracteres.');
+    Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome deve conter no mínimo 3(três) caracteres.');
   } else if (signUpEmail === '') {
-    Alert.alert('Faxinow informa:', 'Campo de email vazio. Preencha o email corretamente.');
+    Alert.alert('Beleza Agendada informa:', 'Campo de email vazio. Preencha o email corretamente.');
   } else if (signUpPassword.length < 6) {
-    Alert.alert('Faxinow informa:', 'A senha deve conter no mínimo 6(seis) caracteres.');
+    Alert.alert('Beleza Agendada informa:', 'A senha deve conter no mínimo 6(seis) caracteres.');
   } else if (signUpPassword !== signUpRepassword || signUpPassword === '') {
-    Alert.alert('Faxinow informa:', 'As senhas não conferem, por favor digite-as corretamente.');
+    Alert.alert('Beleza Agendada informa:', 'As senhas não conferem, por favor digite-as corretamente.');
   } else if (signUpSex === '') {
-    Alert.alert('Faxinow informa:', 'Selecione o sexo');
+    Alert.alert('Beleza Agendada informa:', 'Selecione o sexo');
   } else {
     dispatch({ type: REGISTERING, payload: true });
 
     const alertFail = () => {
       dispatch({ type: REGISTERING, payload: false });
-      Alert.alert('Faxinow informa:', 'Que pena, houve uma falha ao efetuar o cadastro.\nTente novamente mais tarde.');
+      Alert.alert('Beleza Agendada informa:', 'Que pena, houve uma falha ao efetuar o cadastro.\nTente novamente mais tarde.');
     };
 
     const delUsr = () => {
@@ -92,7 +92,7 @@ export const register = () => (dispatch, getState) => {
         firebase.database().ref(`TB_CLIENTE/${emailB64}`).set(data)
           .then(() => {
             dispatch({ type: REGISTERING, payload: false });
-            Alert.alert('Faxinow informa:', 'Cadastro realizado com sucesso!');
+            Alert.alert('Beleza Agendada informa:', 'Cadastro realizado com sucesso!');
           })
           .catch(() => {
             delUsr();
@@ -102,7 +102,7 @@ export const register = () => (dispatch, getState) => {
         switch (error.code) {
           case 'auth/email-already-in-use':
             dispatch({ type: REGISTERING, payload: false });
-            Alert.alert('Faxinow informa:', 'E-mail já cadastrado.');
+            Alert.alert('Beleza Agendada informa:', 'E-mail já cadastrado.');
             break;
           default:
             alertFail();

@@ -1,9 +1,9 @@
 export const LOADING_MAIN = 'loading_main';
 
 export const CHANGE_LOADING_LOGIN = 'change_loading_login';
-export const CHANGE_TEXT_EMAIL_AND_PASSWORD = 'change_text_email_and_password';
-export const CHANGE_TEXT_EMAIL = 'change_text_email';
-export const CHANGE_TEXT_PASSWORD = 'change_text_password';
+export const CHANGE_LOGIN_EMAIL = 'change_text_email';
+export const CHANGE_LOGIN_PASSWORD = 'change_text_password';
+export const LOADING_LOGIN = 'loading_login';
 export const AUTH_PERSISTENCE = 'auth_persistence';
 
 export const CHANGE_SIGNUP_NAME = 'change_signup_name';
