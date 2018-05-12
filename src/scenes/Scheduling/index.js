@@ -9,7 +9,7 @@ import DatePicker from 'react-native-datepicker'
 
 import { colors, textStyles } from '../../style';
 
-import { changeService, changeDate, registerScheduling } from './actions/schedulingActions';
+import { getServices, changeService, changeDate, registerScheduling } from './actions/schedulingActions';
 
 class Scheduling extends Component {
   static navigationOptions = {
@@ -31,28 +31,41 @@ class Scheduling extends Component {
     ),
   };
 
+  componentWillMount() {
+    this.props.getServices();
+  }
+
   render() {
+    const RenderPicker = () => {
+      if (this.props.listServices.length > 0) {
+        return (
+          <Picker
+            selectedValue={this.props.serviceIndex}
+            onValueChange={this.props.changeService}
+            style={{ marginBottom: 20, ...textStyles.default }}
+          >
+            <Picker.Item
+              label="Selecione..."
+              value=""
+            />
+            {this.props.listServices.map((value, index) => {
+                return (
+                  <Picker.Item
+                    label={value.description}
+                    value={index}
+                  />
+                )
+              })
+            }
+          </Picker>
+        )
+      }
+      return <Text style={{ marginVertical: 24, ...textStyles.default }}>Nenhum serviço disponível</Text>
+    }
     return (
       <View style={{ margin: 20, flex: 1 }}>
         <Text style={{ ...textStyles.default }}>Selecione o servço</Text>
-        <Picker
-          selectedValue={this.props.serviceId}
-          onValueChange={this.props.changeService}
-          style={{ marginBottom: 20, ...textStyles.default }}
-        >
-          <Picker.Item
-            label="Selecione..."
-            value=""
-          />
-          <Picker.Item
-            label="Design de sobrancelhas"
-            value="0"
-          />
-          <Picker.Item
-            label="Manicure"
-            value="1"
-          />
-        </Picker>
+        <RenderPicker />
         <Text style={{ marginBottom: 10, ...textStyles.default }}>Data de agendamento</Text>
         <DatePicker
           style={{ width: 155 }}
@@ -89,10 +102,11 @@ class Scheduling extends Component {
 };
 
 const mapStateToProps = state => ({
-  serviceId: state.Scheduling.serviceId,
+  listServices: state.Scheduling.listServices,
+  serviceIndex: state.Scheduling.serviceIndex,
   schedulingDate: state.Scheduling.schedulingDate,
 });
 
-const mapDispatchToProps = dispach => bindActionCreators({ changeService, changeDate, registerScheduling }, dispach);
+const mapDispatchToProps = dispach => bindActionCreators({ getServices, changeService, changeDate, registerScheduling }, dispach);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scheduling);

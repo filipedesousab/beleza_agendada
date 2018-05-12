@@ -8,7 +8,7 @@ export default ListItem = props => {
 
   return (
     <View style={{ height: 80, width: width-10, backgroundColor: '#fafafa', margin: 5 }}>
-      <Text style={{ margin: 5, ...textStyles.default }}>Serviço: {props.item.serviceId}</Text>
+      <Text style={{ margin: 5, ...textStyles.default }}>Serviço: {props.item.description}</Text>
       <Text style={{ margin: 5, ...textStyles.default }}>Data agendada: {props.item.schedulingDate}</Text>
     </View>
   )

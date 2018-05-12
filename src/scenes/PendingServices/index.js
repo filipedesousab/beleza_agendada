@@ -20,7 +20,7 @@ class PeddingServices extends Component {
         underlayColor="#fff"
         style={{ marginRight: 10 }}
       >
-        <FontAwesome name="sign-out" size={25} color={colors.dark}/>
+        <FontAwesome name="sign-out" size={25} color={colors.dark} />
       </TouchableHighlight>
     ),
     tabBarIcon: ({ focused, tintColor }) => (
@@ -44,7 +44,7 @@ class PeddingServices extends Component {
           />
         );
       }
-      return <Text>Lista Vazia</Text>;
+      return <Text style={{ ...textStyles.default }}>Lista Vazia</Text>;
     };
 
     return (

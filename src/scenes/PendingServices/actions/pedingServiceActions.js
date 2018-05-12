@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import base64 from 'base-64';
 import _ from 'lodash';
 
-import { SERVICE_LIST } from './types';
+import { SCHEDULING_LIST } from './types';
 
 export const listServices = () => (dispatch, getState) => {
   const { currentUser } = firebase.auth();
@@ -11,12 +11,12 @@ export const listServices = () => (dispatch, getState) => {
   if (currentUser.email) {
     firebase.database().ref(`/TB_ATENDIMENTO/${emailB64}`)
     .on('value', snapshot => {
-      let arrayServices = []
+      let arrayScheduling = []
       _.mapValues(snapshot.val(), (value, key) => {
-        arrayServices.push({ ...value, key });
+        arrayScheduling.push({ ...value, key });
       });
 
-      dispatch({ type: SERVICE_LIST, payload: arrayServices });
+      dispatch({ type: SCHEDULING_LIST, payload: arrayScheduling });
     });
   }
 };
