@@ -9,12 +9,12 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  signUpName: 'Filipe',
-  signUpLastname: 'de Sousa',
-  signUpEmail: 'filipegame07@gmail.com',
-  signUpPassword: '123456',
-  signUpRepassword: '123456',
-  signUpSex: 'm',
+  signUpName: '',
+  signUpLastname: '',
+  signUpEmail: '',
+  signUpPassword: '',
+  signUpRepassword: '',
+  signUpSex: '',
   registering: false,
 };
 

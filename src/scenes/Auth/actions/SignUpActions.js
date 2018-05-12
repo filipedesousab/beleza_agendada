@@ -42,14 +42,14 @@ export const register = () => (dispatch, getState) => {
     Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome vazio.');
   } else if (signUpLastname.length < 3) {
     Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome deve conter no mínimo 3(três) caracteres.');
+  } else if (signUpSex === '') {
+    Alert.alert('Beleza Agendada informa:', 'Selecione o sexo');
   } else if (signUpEmail === '') {
     Alert.alert('Beleza Agendada informa:', 'Campo de email vazio. Preencha o email corretamente.');
   } else if (signUpPassword.length < 6) {
     Alert.alert('Beleza Agendada informa:', 'A senha deve conter no mínimo 6(seis) caracteres.');
   } else if (signUpPassword !== signUpRepassword || signUpPassword === '') {
     Alert.alert('Beleza Agendada informa:', 'As senhas não conferem, por favor digite-as corretamente.');
-  } else if (signUpSex === '') {
-    Alert.alert('Beleza Agendada informa:', 'Selecione o sexo');
   } else {
     dispatch({ type: REGISTERING, payload: true });
 

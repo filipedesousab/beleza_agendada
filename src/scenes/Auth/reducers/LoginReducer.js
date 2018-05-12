@@ -5,8 +5,8 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  email: 'filipegame07@gmail.com',
-  password: '123456',
+  email: '',
+  password: '',
   loading: false,
 };
 
