@@ -5,6 +5,7 @@ import SignUp from './scenes/Auth/reducers/SignUpReducer';
 import Login from './scenes/Auth/reducers/LoginReducer';
 import Scheduling from './scenes/Scheduling/reducers/schedulingReducer';
 import PendingServices from './scenes/PendingServices/reducers/pedingServiceReducer';
+import CompletedServices from './scenes/CompletedServices/reducers/completedServiceReducer';
 
 export default combineReducers({
   Variables,
@@ -12,4 +13,5 @@ export default combineReducers({
   Login,
   Scheduling,
   PendingServices,
+  CompletedServices,
 });
