@@ -1,4 +1,4 @@
-import { success, danger, white } from './colors';
+import { success, danger, primary } from './colors';
 
 export const styleActivityIndicator = {
   larger: {
@@ -12,7 +12,7 @@ export const styleActivityIndicator = {
     },
     default: {
       size: 50,
-      color: white,
+      color: primary,
     },
   },
   medium: {
@@ -26,7 +26,7 @@ export const styleActivityIndicator = {
     },
     default: {
       size: 50,
-      color: white,
+      color: primary,
     },
   },
   small: {
@@ -40,7 +40,7 @@ export const styleActivityIndicator = {
     },
     default: {
       size: 50,
-      color: white,
+      color: primary,
     },
   },
   success: {
@@ -51,6 +51,6 @@ export const styleActivityIndicator = {
   },
   default: {
     size: 50,
-    color: white,
+    color: primary,
   },
 };

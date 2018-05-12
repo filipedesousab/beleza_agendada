@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, FlatList, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import colors from '../../style/colors';
+import { colors } from '../../style';
+import ListItem from './components/ListItem';
+import { listServices } from './actions/pedingServiceActions';
 
-export default class AuthSignUp extends Component {
+class PeddingServices extends Component {
   static navigationOptions = {
     title: 'Serviços Pendentes',
     header: null,
@@ -15,11 +19,37 @@ export default class AuthSignUp extends Component {
     ),
   };
 
+  componentWillMount() {
+    this.props.listServices();
+  }
+
   render() {
+    const RenderListView = () => {
+      if (this.props.services.length > 0) {
+        return (
+          <FlatList
+            data={this.props.services}
+            renderItem={({item}) => <ListItem item={item} />}
+          />
+        );
+      }
+      return <Text>Lista Vazia</Text>;
+    };
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{ fontSize: 40 }}>Tela de Serviços Pendentes</Text>
+        <Text style={{ fontSize: 30 }}>Serviços Pendentes</Text>
+        <RenderListView />
       </View>
     );
   }
 };
+
+
+const mapStateToProps = state =>  ({
+  services: state.PendingServices.services,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ listServices }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PeddingServices);
