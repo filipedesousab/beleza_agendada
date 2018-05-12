@@ -2,7 +2,6 @@ import { StackNavigator, SwitchNavigator, TabNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { AuthLogin, AuthSignUp, ResetPassword } from './scenes/Auth';
-import Home from './scenes/Home';
 import Scheduling from './scenes/Scheduling';
 import PendingServices from './scenes/PendingServices';
 import CompletedServices from './scenes/CompletedServices';
@@ -26,12 +25,11 @@ const AuthStack = StackNavigator({
 });
 
 const AppTabs = TabNavigator({
-  Home: { screen: Home },
   Scheduling: { screen: Scheduling },
   PendingServices: { screen: PendingServices },
   CompletedServices: { screen: CompletedServices },
 }, {
-  initialRouteName: 'Home',
+  initialRouteName: 'Scheduling',
   tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: '#000',

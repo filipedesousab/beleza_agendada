@@ -3,7 +3,7 @@ import { Button, View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import colors from '../../style/colors';
+import { colors, textStyles } from '../../style';
 
 import {
   changeEmail,
@@ -20,16 +20,15 @@ class AuthLogin extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
-        <Text style={{ fontSize: 40, marginVertical: 30 }}>Tela de Login</Text>
         <TextInput
-          style={{ width: 300 }}
+          style={{ width: 300, ...textStyles.default }}
           placeholder="Insira o e-mail"
           keyboardType="email-address"
           value={this.props.email}
           onChangeText={this.props.changeEmail}
         />
         <TextInput
-          style={{ width: 300 }}
+          style={{ width: 300, ...textStyles.default }}
           placeholder="Insira a senha"
           secureTextEntry
           value={this.props.password}

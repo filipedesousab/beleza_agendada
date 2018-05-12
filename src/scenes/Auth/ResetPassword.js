@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 
-import colors from '../../style/colors';
+import { colors, textStyles } from '../../style';
 
 export default class AuthSignUp extends Component {
   static navigationOptions = {
-    title: 'Recuperar Senha'
+    title: 'Recuperar Senha',
+    headerTitleStyle: { ...textStyles.title },
   };
 
   render() {

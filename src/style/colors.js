@@ -10,6 +10,7 @@ const colors = {
   warning: '#ffc107',
   white: '#fff',
   pink: '#ffc0cb',
+  dark: '#6f6f6f',
 };
 
 export default colors;

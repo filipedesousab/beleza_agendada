@@ -1,34 +1,44 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-import { View, Text, Button, Picker, TextInput } from 'react-native';
+import { View, Text, Button, Picker, TextInput, TouchableHighlight } from 'react-native';
+import firebase from 'firebase';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-datepicker'
 
-import colors from '../../style/colors';
+import { colors, textStyles } from '../../style';
 
 import { changeService, changeDate, registerScheduling } from './actions/schedulingActions';
 
 class Scheduling extends Component {
   static navigationOptions = {
     title: 'Agendamento',
-    header: null,
+    headerTitleStyle: { ...textStyles.title },
+    headerRight: (
+      <TouchableHighlight
+        onPress={() => firebase.auth().signOut()}
+        underlayColor="#fff"
+        style={{ marginRight: 10 }}
+      >
+        <FontAwesome name="sign-out" size={25} color={colors.dark}/>
+      </TouchableHighlight>
+    ),
     tabBarIcon: ({ focused, tintColor }) => (
       focused
         ? <Icon name="event" size={30} color={colors.button} />
-        : <Icon name="event" size={30} color="#000" />
+        : <Icon name="event" size={30} color={colors.dark}/>
     ),
   };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 30, marginBottom: 30 }}>Agendamento</Text>
-        <Text>Selecione o servço</Text>
+      <View style={{ margin: 20, flex: 1 }}>
+        <Text style={{ ...textStyles.default }}>Selecione o servço</Text>
         <Picker
           selectedValue={this.props.serviceId}
           onValueChange={this.props.changeService}
-          style={{ marginBottom: 20 }}
+          style={{ marginBottom: 20, ...textStyles.default }}
         >
           <Picker.Item
             label="Selecione..."
@@ -43,9 +53,9 @@ class Scheduling extends Component {
             value="1"
           />
         </Picker>
-        <Text>Data de agendamento</Text>
+        <Text style={{ marginBottom: 10, ...textStyles.default }}>Data de agendamento</Text>
         <DatePicker
-          style={{ width: 130 }}
+          style={{ width: 155 }}
           mode="date"
           date={this.props.schedulingDate}
           placeholder="select date"
@@ -65,7 +75,7 @@ class Scheduling extends Component {
           }}
           onDateChange={this.props.changeDate}
         />
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ marginTop: 30, alignItems: 'center', justifyContent: 'center' }}>
           <Button
             style={{ flex: 1 }}
             title='Agendar'
