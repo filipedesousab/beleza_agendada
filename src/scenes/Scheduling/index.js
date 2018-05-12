@@ -42,7 +42,7 @@ class Scheduling extends Component {
           <Picker
             selectedValue={this.props.serviceIndex}
             onValueChange={this.props.changeService}
-            style={{ marginBottom: 20, ...textStyles.default }}
+            style={{ marginBottom: 20 }}
           >
             <Picker.Item
               label="Selecione..."
@@ -53,6 +53,7 @@ class Scheduling extends Component {
                   <Picker.Item
                     label={value.description}
                     value={index}
+                    key={index}
                   />
                 )
               })
