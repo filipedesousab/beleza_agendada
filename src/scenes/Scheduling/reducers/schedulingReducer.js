@@ -15,7 +15,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SERVICE_LIST:
-      console.log(action);
       return { ...state, listServices: action.payload };
     case MODIFY_REGISTERING:
       return { ...state, registering: action.payload };

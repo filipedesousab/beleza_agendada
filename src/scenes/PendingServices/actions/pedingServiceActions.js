@@ -4,19 +4,26 @@ import _ from 'lodash';
 
 import { SCHEDULING_LIST } from './types';
 
-export const listServices = () => (dispatch, getState) => {
+export const listScheduleing = () => (dispatch) => {
   const { currentUser } = firebase.auth();
   const emailB64 = base64.encode(currentUser.email.trim());
 
   if (currentUser.email) {
     firebase.database().ref(`/TB_ATENDIMENTO/${emailB64}`)
-    .on('value', snapshot => {
-      let arrayScheduling = []
-      _.mapValues(snapshot.val(), (value, key) => {
-        arrayScheduling.push({ ...value, key });
-      });
+      .on('value', (snapshot) => {
+        let arrayScheduling = []
+        _.mapValues(snapshot.val(), (value, key) => {
+          if (value.status !== 'r' && value.status !== 'c') arrayScheduling.push({ ...value, key });
+        });
 
-      dispatch({ type: SCHEDULING_LIST, payload: arrayScheduling });
-    });
+        dispatch({ type: SCHEDULING_LIST, payload: arrayScheduling });
+      });
   }
+};
+
+export const removeScheduleing = key => (dispach) => {
+  const { currentUser } = firebase.auth();
+  const emailB64 = base64.encode(currentUser.email.trim());
+
+  firebase.database().ref(`/TB_ATENDIMENTO/${emailB64}`).child(key).child('status').set('c');
 };

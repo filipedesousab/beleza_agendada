@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 
 import { colors, textStyles } from '../../style';
 import ListItem from './components/ListItem';
-import { listServices } from './actions/pedingServiceActions';
+import { listScheduleing, removeScheduleing } from './actions/pedingServiceActions';
 
 class PeddingServices extends Component {
   static navigationOptions = {
@@ -31,16 +31,16 @@ class PeddingServices extends Component {
   };
 
   componentWillMount() {
-    this.props.listServices();
+    this.props.listScheduleing();
   }
 
   render() {
     const RenderListView = () => {
-      if (this.props.services.length > 0) {
+      if (this.props.schedules.length > 0) {
         return (
           <FlatList
-            data={this.props.services}
-            renderItem={({item}) => <ListItem item={item} />}
+            data={this.props.schedules}
+            renderItem={({item}) => <ListItem item={item} remove={this.props.removeScheduleing} />}
           />
         );
       }
@@ -55,11 +55,10 @@ class PeddingServices extends Component {
   }
 };
 
-
 const mapStateToProps = state =>  ({
-  services: state.PendingServices.services,
+  schedules: state.PendingServices.schedules,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ listServices }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ listScheduleing, removeScheduleing }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeddingServices);
