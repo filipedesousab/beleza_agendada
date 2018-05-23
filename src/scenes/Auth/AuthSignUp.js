@@ -8,11 +8,18 @@ import { colors, styleActivityIndicator, textStyles } from '../../style';
 
 import {
   changeName,
-  changeUsername,
+  changeSex,
+  changeBirthDate,
+  changeDdd,
+  changePhone,
+  changeAddress,
+  changeNeighborhood,
+  changeZipCode,
+  changeCity,
   changeEmail,
+  changeUsername,
   changePassword,
   changeRepassword,
-  changeSex,
   register,
 } from './actions/SignUpActions';
 
@@ -116,7 +123,7 @@ class AuthSignUp extends Component {
           />
           <TextInput
             style={{ width: 300, ...textStyles.default }}
-            placeholder="Bairro"
+            placeholder="Cep"
             value={this.props.zipCode}
             onChangeText={this.props.changeZipCode}
           />
@@ -180,10 +187,17 @@ class AuthSignUp extends Component {
 };
 
 const mapStateToProps = state =>  ({
+  name: state.SignUp.signUpName,
   sex: state.SignUp.signUpSex,
+  birthDate: state.SignUp.signUpBirthDate,
+  ddd: state.SignUp.signUpDdd,
+  phone: state.SignUp.signUpPhone,
+  address: state.SignUp.signUpAddress,
+  neighborhood: state.SignUp.signUpNeighborhood,
+  zipCode: state.SignUp.signUpZipCode,
+  city: state.SignUp.signUpCity,
   email: state.SignUp.signUpEmail,
   username: state.SignUp.signUpUsername,
-  name: state.SignUp.signUpName,
   password: state.SignUp.signUpPassword,
   repassword: state.SignUp.signUpRepassword,
   registering: state.SignUp.registering,
@@ -191,11 +205,18 @@ const mapStateToProps = state =>  ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   changeName,
-  changeUsername,
+  changeSex,
+  changeBirthDate,
+  changeDdd,
+  changePhone,
+  changeAddress,
+  changeNeighborhood,
+  changeZipCode,
+  changeCity,
   changeEmail,
+  changeUsername,
   changePassword,
   changeRepassword,
-  changeSex,
   register,
 }, dispatch);
 

@@ -1,20 +1,34 @@
 import {
   CHANGE_SIGNUP_NAME,
-  CHANGE_SIGNUP_USERNAME,
+  CHANGE_SIGNUP_SEX,
+  CHANGE_SIGNUP_BIRTHDATE,
+  CHANGE_SIGNUP_DDD,
+  CHANGE_SIGNUP_PHONE,
+  CHANGE_SIGNUP_ADDRESS,
+  CHANGE_SIGNUP_NEIGHBORHOOD,
+  CHANGE_SIGNUP_ZIPCODE,
+  CHANGE_SIGNUP_CITY,
   CHANGE_SIGNUP_EMAIL,
+  CHANGE_SIGNUP_USERNAME,
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_REPASSWORD,
-  CHANGE_SIGNUP_SEX,
   REGISTERING,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   signUpName: '',
-  signUpUsername: '',
+  signUpSex: '',
+  signUpBirthDate: '',
+  signUpDdd: '',
+  signUpPhone: '',
+  signUpAddress: '',
+  signUpNeighborhood: '',
+  signUpZipCode: '',
+  signUpCity: '',
   signUpEmail: '',
+  signUpUsername: '',
   signUpPassword: '',
   signUpRepassword: '',
-  signUpSex: '',
   registering: false,
 };
 
@@ -22,16 +36,30 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CHANGE_SIGNUP_NAME:
       return { ...state, signUpName: action.payload };
-    case CHANGE_SIGNUP_USERNAME:
-      return { ...state, signUpUsername: action.payload };
+    case CHANGE_SIGNUP_SEX:
+      return { ...state, signUpSex: action.payload };
+    case CHANGE_SIGNUP_BIRTHDATE:
+      return { ...state, signUpBirthDate: action.payload };
+    case CHANGE_SIGNUP_DDD:
+      return { ...state, signUpDdd: action.payload };
+    case CHANGE_SIGNUP_PHONE:
+      return { ...state, signUpPhone: action.payload };
+    case CHANGE_SIGNUP_ADDRESS:
+      return { ...state, signUpAddress: action.payload };
+    case CHANGE_SIGNUP_NEIGHBORHOOD:
+      return { ...state, signUpNeighborhood: action.payload };
+    case CHANGE_SIGNUP_ZIPCODE:
+      return { ...state, signUpZipCode: action.payload };
+    case CHANGE_SIGNUP_CITY:
+      return { ...state, signUpCity: action.payload };
     case CHANGE_SIGNUP_EMAIL:
       return { ...state, signUpEmail: action.payload };
+    case CHANGE_SIGNUP_USERNAME:
+      return { ...state, signUpUsername: action.payload };
     case CHANGE_SIGNUP_PASSWORD:
       return { ...state, signUpPassword: action.payload };
     case CHANGE_SIGNUP_REPASSWORD:
       return { ...state, signUpRepassword: action.payload };
-    case CHANGE_SIGNUP_SEX:
-      return { ...state, signUpSex: action.payload };
     case REGISTERING:
       return { ...state, registering: action.payload };
     default:

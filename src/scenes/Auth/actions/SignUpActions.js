@@ -4,25 +4,46 @@ import base64 from 'base-64';
 
 import {
   CHANGE_SIGNUP_NAME,
-  CHANGE_SIGNUP_USERNAME,
+  CHANGE_SIGNUP_SEX,
+  CHANGE_SIGNUP_BIRTHDATE,
+  CHANGE_SIGNUP_DDD,
+  CHANGE_SIGNUP_PHONE,
+  CHANGE_SIGNUP_ADDRESS,
+  CHANGE_SIGNUP_NEIGHBORHOOD,
+  CHANGE_SIGNUP_ZIPCODE,
+  CHANGE_SIGNUP_CITY,
   CHANGE_SIGNUP_EMAIL,
+  CHANGE_SIGNUP_USERNAME,
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_REPASSWORD,
-  CHANGE_SIGNUP_SEX,
   REGISTERING,
 } from './types';
 
 export const changeName = name => ({ type: CHANGE_SIGNUP_NAME, payload: name });
 
-export const changeUsername = username => ({ type: CHANGE_SIGNUP_USERNAME, payload: username });
+export const changeSex = sex => ({ type: CHANGE_SIGNUP_SEX, payload: sex });
+
+export const changeBirthDate = birthDate => ({ type: CHANGE_SIGNUP_BIRTHDATE, payload: birthDate });
+
+export const changeDdd = ddd => ({ type: CHANGE_SIGNUP_DDD, payload: ddd });
+
+export const changePhone = phone => ({ type: CHANGE_SIGNUP_PHONE, payload: phone });
+
+export const changeAddress = address => ({ type: CHANGE_SIGNUP_ADDRESS, payload: address });
+
+export const changeNeighborhood = neighborhood => ({ type: CHANGE_SIGNUP_NEIGHBORHOOD, payload: neighborhood });
+
+export const changeZipCode = zipCode => ({ type: CHANGE_SIGNUP_ZIPCODE, payload: zipCode });
+
+export const changeCity = city => ({ type: CHANGE_SIGNUP_CITY, payload: city });
 
 export const changeEmail = email => ({ type: CHANGE_SIGNUP_EMAIL, payload: email });
+
+export const changeUsername = username => ({ type: CHANGE_SIGNUP_USERNAME, payload: username });
 
 export const changePassword = password => ({ type: CHANGE_SIGNUP_PASSWORD, payload: password });
 
 export const changeRepassword = repassword => ({ type: CHANGE_SIGNUP_REPASSWORD, payload: repassword });
-
-export const changeSex = sex => ({ type: CHANGE_SIGNUP_SEX, payload: sex });
 
 export const register = () => (dispatch, getState) => {
   const {
