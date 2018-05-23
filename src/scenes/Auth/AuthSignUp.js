@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Button, Picker, View, Text, TextInput, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import DatePicker from 'react-native-datepicker'
 
 import { colors, styleActivityIndicator, textStyles } from '../../style';
 
@@ -44,16 +45,10 @@ class AuthSignUp extends Component {
             value={this.props.name}
             onChangeText={this.props.changeName}
           />
-          <TextInput
-            style={{ width: 300, ...textStyles.default }}
-            placeholder="Insira o seu username"
-            value={this.props.username}
-            onChangeText={this.props.changeUsername}
-          />
           <View style={{ width: 300, flexDirection: 'row' }}>
             <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Sexo</Text>
             <Picker
-              style={{ width: 250, ...textStyles.default }}
+              style={{ width: 245, ...textStyles.default }}
               selectedValue={this.props.sex}
               onValueChange={this.props.changeSex}
             >
@@ -63,11 +58,86 @@ class AuthSignUp extends Component {
               />
               <Picker.Item
                 label="Feminino"
-                value="f"
+                value="F"
               />
               <Picker.Item
                 label="Masculino"
-                value="m"
+                value="M"
+              />
+            </Picker>
+          </View>
+          <View style={{ width: 300, flexDirection: 'row' }}>
+            <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Nascimento:</Text>
+            <DatePicker
+              style={{ width: 185 }}
+              mode="date"
+              date={this.props.birthDate}
+              placeholder="Data de nascimento"
+              format="DD/MM/YYYY"
+              confirmBtnText="Confirmar"
+              cancelBtnText="Cancelar"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+                dateInput: {
+                  marginLeft: 36
+                }
+              }}
+              onDateChange={this.props.changeBirthDate}
+            />
+          </View>
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="DDD"
+            value={this.props.ddd}
+            onChangeText={this.props.changeDdd}
+          />
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="Telefone"
+            value={this.props.phone}
+            onChangeText={this.props.changePhone}
+          />
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="Endereço"
+            value={this.props.address}
+            onChangeText={this.props.changeAddress}
+          />
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="Bairro"
+            value={this.props.neighborhood}
+            onChangeText={this.props.changeNeighborhood}
+          />
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="Bairro"
+            value={this.props.zipCode}
+            onChangeText={this.props.changeZipCode}
+          />
+          <View style={{ width: 300, flexDirection: 'row' }}>
+            <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Cidade</Text>
+            <Picker
+              style={{ width: 235, ...textStyles.default }}
+              selectedValue={this.props.city}
+              onValueChange={this.props.changeCity}
+            >
+              <Picker.Item
+                label="Selecione..."
+                value=""
+              />
+              <Picker.Item
+                label="Recife"
+                value={1}
+              />
+              <Picker.Item
+                label="Jaboatão dos Guararapes"
+                value={2}
               />
             </Picker>
           </View>
@@ -77,6 +147,12 @@ class AuthSignUp extends Component {
             keyboardType="email-address"
             value={this.props.email}
             onChangeText={this.props.changeEmail}
+          />
+          <TextInput
+            style={{ width: 300, ...textStyles.default }}
+            placeholder="Insira o seu username"
+            value={this.props.username}
+            onChangeText={this.props.changeUsername}
           />
           <TextInput
             style={{ width: 300, ...textStyles.default }}
