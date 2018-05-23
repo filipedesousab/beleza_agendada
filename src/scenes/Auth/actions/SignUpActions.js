@@ -4,7 +4,7 @@ import base64 from 'base-64';
 
 import {
   CHANGE_SIGNUP_NAME,
-  CHANGE_SIGNUP_LASTNAME,
+  CHANGE_SIGNUP_USERNAME,
   CHANGE_SIGNUP_EMAIL,
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_REPASSWORD,
@@ -14,7 +14,7 @@ import {
 
 export const changeName = name => ({ type: CHANGE_SIGNUP_NAME, payload: name });
 
-export const changeLastname = lastname => ({ type: CHANGE_SIGNUP_LASTNAME, payload: lastname });
+export const changeUsername = username => ({ type: CHANGE_SIGNUP_USERNAME, payload: username });
 
 export const changeEmail = email => ({ type: CHANGE_SIGNUP_EMAIL, payload: email });
 
@@ -27,7 +27,7 @@ export const changeSex = sex => ({ type: CHANGE_SIGNUP_SEX, payload: sex });
 export const register = () => (dispatch, getState) => {
   const {
     signUpName,
-    signUpLastname,
+    signUpUsername,
     signUpEmail,
     signUpPassword,
     signUpRepassword,
@@ -38,9 +38,9 @@ export const register = () => (dispatch, getState) => {
     Alert.alert('Beleza Agendada informa:', 'Campo de nome vazio.');
   } else if (signUpName.length < 3) {
     Alert.alert('Beleza Agendada informa:', 'Campo de nome deve conter no mínimo 3(três) caracteres.');
-  } else if (signUpLastname === '') {
+  } else if (signUpUsername === '') {
     Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome vazio.');
-  } else if (signUpLastname.length < 3) {
+  } else if (signUpUsername.length < 3) {
     Alert.alert('Beleza Agendada informa:', 'Campo de sobrenome deve conter no mínimo 3(três) caracteres.');
   } else if (signUpSex === '') {
     Alert.alert('Beleza Agendada informa:', 'Selecione o sexo');
@@ -81,7 +81,7 @@ export const register = () => (dispatch, getState) => {
       .then(() => {
         const data = {
           name: signUpName,
-          lastname: signUpLastname,
+          username: signUpUsername,
           email: signUpEmail,
           userType: 'parceiro',
           ep: 'b64',

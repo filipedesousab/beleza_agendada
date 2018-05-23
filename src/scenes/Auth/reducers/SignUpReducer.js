@@ -1,6 +1,6 @@
 import {
   CHANGE_SIGNUP_NAME,
-  CHANGE_SIGNUP_LASTNAME,
+  CHANGE_SIGNUP_USERNAME,
   CHANGE_SIGNUP_EMAIL,
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_REPASSWORD,
@@ -10,7 +10,7 @@ import {
 
 const INITIAL_STATE = {
   signUpName: '',
-  signUpLastname: '',
+  signUpUsername: '',
   signUpEmail: '',
   signUpPassword: '',
   signUpRepassword: '',
@@ -22,8 +22,8 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CHANGE_SIGNUP_NAME:
       return { ...state, signUpName: action.payload };
-    case CHANGE_SIGNUP_LASTNAME:
-      return { ...state, signUpLastname: action.payload };
+    case CHANGE_SIGNUP_USERNAME:
+      return { ...state, signUpUsername: action.payload };
     case CHANGE_SIGNUP_EMAIL:
       return { ...state, signUpEmail: action.payload };
     case CHANGE_SIGNUP_PASSWORD:

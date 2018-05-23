@@ -7,7 +7,7 @@ import { colors, styleActivityIndicator, textStyles } from '../../style';
 
 import {
   changeName,
-  changeLastname,
+  changeUsername,
   changeEmail,
   changePassword,
   changeRepassword,
@@ -46,9 +46,9 @@ class AuthSignUp extends Component {
           />
           <TextInput
             style={{ width: 300, ...textStyles.default }}
-            placeholder="Insira o seu sobrenome"
-            value={this.props.lastname}
-            onChangeText={this.props.changeLastname}
+            placeholder="Insira o seu username"
+            value={this.props.username}
+            onChangeText={this.props.changeUsername}
           />
           <View style={{ width: 300, flexDirection: 'row' }}>
             <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Sexo</Text>
@@ -106,7 +106,7 @@ class AuthSignUp extends Component {
 const mapStateToProps = state =>  ({
   sex: state.SignUp.signUpSex,
   email: state.SignUp.signUpEmail,
-  lastname: state.SignUp.signUpLastname,
+  username: state.SignUp.signUpUsername,
   name: state.SignUp.signUpName,
   password: state.SignUp.signUpPassword,
   repassword: state.SignUp.signUpRepassword,
@@ -115,7 +115,7 @@ const mapStateToProps = state =>  ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   changeName,
-  changeLastname,
+  changeUsername,
   changeEmail,
   changePassword,
   changeRepassword,
