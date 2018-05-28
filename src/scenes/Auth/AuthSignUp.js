@@ -38,7 +38,7 @@ class AuthSignUp extends Component {
         <Button
           title='Cadastrar'
           color={colors.button}
-          onPress={ this.props.register }
+          onPress={() => this.props.register(this.props.navigation.goBack)}
         />
       );
     }
@@ -140,11 +140,11 @@ class AuthSignUp extends Component {
               />
               <Picker.Item
                 label="Recife"
-                value={1}
+                value={26116061}
               />
               <Picker.Item
                 label="Jaboatão dos Guararapes"
-                value={2}
+                value={2607901}
               />
             </Picker>
           </View>

@@ -16,19 +16,19 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  signUpName: '',
-  signUpSex: '',
-  signUpBirthDate: '',
-  signUpDdd: '',
-  signUpPhone: '',
-  signUpAddress: '',
-  signUpNeighborhood: '',
-  signUpZipCode: '',
-  signUpCity: '',
-  signUpEmail: '',
-  signUpUsername: '',
-  signUpPassword: '',
-  signUpRepassword: '',
+  signUpName: 'Filipe',
+  signUpSex: 'M',
+  signUpBirthDate: '21/07/1993',
+  signUpDdd: '81',
+  signUpPhone: '996927685',
+  signUpAddress: 'Rua Paraná',
+  signUpNeighborhood: 'Socorro',
+  signUpZipCode: '54160660',
+  signUpCity: 2607901,
+  signUpEmail: 'filipegame07@gmail.com',
+  signUpUsername: 'filipegame07',
+  signUpPassword: '123456',
+  signUpRepassword: '123456',
   registering: false,
 };
 
