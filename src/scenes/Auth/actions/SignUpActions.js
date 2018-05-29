@@ -17,6 +17,7 @@ import {
   CHANGE_SIGNUP_REPASSWORD,
   REGISTERING,
   CHANGE_LOGIN_EMAIL,
+  CHANGE_SIGNUP_CITY_LIST,
 } from './types';
 
 export const changeName = name => ({ type: CHANGE_SIGNUP_NAME, payload: name });
@@ -116,14 +117,22 @@ export const register = callbackSuccess => (dispatch, getState) => {
 
     axios.post('https://beleza-agendada-api.herokuapp.com/Cliente/inserir/', data)
       .then((response) => {
-        console.log(response);
         dispatch({ type: REGISTERING, payload: false });
         dispatch({ type: CHANGE_LOGIN_EMAIL, payload: signUpEmail });
         if (typeof callbackSuccess === 'function') callbackSuccess();
       })
       .catch((error) => {
-        console.log(error);
         alertFail();
       });
   }
 };
+
+export const getCities = () => (dispatch) => {
+  axios.post('http://beleza-agendada-api.herokuapp.com/Municipio/listarPorEstado/', { "Uf": "PE" })
+    .then((response) => {
+      dispatch({ type: CHANGE_SIGNUP_CITY_LIST, payload: response.data });
+    })
+    .catch((error) => {
+      Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar as cidades.');
+    });
+}

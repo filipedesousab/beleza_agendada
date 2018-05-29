@@ -20,6 +20,7 @@ export const CHANGE_SIGNUP_USERNAME = 'change_signup_username';
 export const CHANGE_SIGNUP_PASSWORD = 'change_signup_password';
 export const CHANGE_SIGNUP_REPASSWORD = 'change_signup_repassword';
 export const REGISTERING = 'registering';
+export const CHANGE_SIGNUP_CITY_LIST = 'change_signup_city_list';
 
 export const CHANGE_LOADING_RESET_PASSWORD = 'change_loading_reset_password';
 export const CHANGE_HIDE_COMPONENTS = 'change_hide_components';

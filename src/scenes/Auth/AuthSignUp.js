@@ -21,6 +21,7 @@ import {
   changePassword,
   changeRepassword,
   register,
+  getCities,
 } from './actions/SignUpActions';
 
 class AuthSignUp extends Component {
@@ -28,7 +29,9 @@ class AuthSignUp extends Component {
     title: 'Cadastre-se',
     headerTitleStyle: { ...textStyles.title },
   };
-
+  componentWillMount() {
+    this.props.getCities();
+  }
   render() {
     const RenderButton = () => {
       if (this.props.registering) {
@@ -43,6 +46,32 @@ class AuthSignUp extends Component {
       );
     }
 
+    const RenderCities = () => {
+      if (this.props.cityList.length > 0) {
+        return (
+          <Picker
+            style={{ width: 235, ...textStyles.default, fontSize: null }}
+            selectedValue={this.props.city}
+            onValueChange={this.props.changeCity}
+          >
+            <Picker.Item
+              label="Selecione..."
+              value=""
+            />
+            {this.props.cityList.map((value, index) => {
+              return (
+                <Picker.Item
+                  label={value.Nome}
+                  value={value.Id}
+                  key={`city-${value.Id}`}
+                />
+              )
+            })}
+          </Picker>
+        )
+      }
+      return <Text style={{ marginVertical: 15, ...textStyles.default }}>Nenhuma cidade disponível</Text>
+    };
     return (
       <ScrollView style={{ flex: 1, padding: 30, paddingBottom: 0, backgroundColor: colors.backgroundAuth }}>
         <View style={{ flex: 1, marginBottom: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
@@ -128,25 +157,8 @@ class AuthSignUp extends Component {
             onChangeText={this.props.changeZipCode}
           />
           <View style={{ width: 300, flexDirection: 'row' }}>
-            <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Cidade</Text>
-            <Picker
-              style={{ width: 235, ...textStyles.default }}
-              selectedValue={this.props.city}
-              onValueChange={this.props.changeCity}
-            >
-              <Picker.Item
-                label="Selecione..."
-                value=""
-              />
-              <Picker.Item
-                label="Recife"
-                value={26116061}
-              />
-              <Picker.Item
-                label="Jaboatão dos Guararapes"
-                value={2607901}
-              />
-            </Picker>
+            <Text style={{ marginVertical: 15, marginHorizontal: 10, ...textStyles.default }}>Cidade:</Text>
+            <RenderCities />
           </View>
           <TextInput
             style={{ width: 300, ...textStyles.default }}
@@ -201,6 +213,7 @@ const mapStateToProps = state =>  ({
   password: state.SignUp.signUpPassword,
   repassword: state.SignUp.signUpRepassword,
   registering: state.SignUp.registering,
+  cityList: state.SignUp.signUpCityList,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -218,6 +231,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   changePassword,
   changeRepassword,
   register,
+  getCities,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthSignUp);

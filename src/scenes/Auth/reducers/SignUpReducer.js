@@ -13,6 +13,7 @@ import {
   CHANGE_SIGNUP_PASSWORD,
   CHANGE_SIGNUP_REPASSWORD,
   REGISTERING,
+  CHANGE_SIGNUP_CITY_LIST,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -30,6 +31,7 @@ const INITIAL_STATE = {
   signUpPassword: '123456',
   signUpRepassword: '123456',
   registering: false,
+  signUpCityList: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -62,6 +64,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, signUpRepassword: action.payload };
     case REGISTERING:
       return { ...state, registering: action.payload };
+    case CHANGE_SIGNUP_CITY_LIST:
+      return { ...state, signUpCityList: action.payload };
     default:
       return state;
   }
