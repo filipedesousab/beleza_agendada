@@ -1,44 +1,49 @@
 import { Alert } from 'react-native';
-import firebase from 'firebase';
+import axios from 'axios';
 import base64 from 'base-64';
 
 import {
-  CHANGE_LOGIN_EMAIL,
+  CHANGE_LOGIN_USERNAME,
   CHANGE_LOGIN_PASSWORD,
   LOADING_LOGIN,
 } from './types';
+import { MODIFY_USER_DATA } from '../../../actions/types';
 
-export const changeEmail = email => ({ type: CHANGE_LOGIN_EMAIL, payload: email });
+export const changeUsername = username => ({ type: CHANGE_LOGIN_USERNAME, payload: username });
 
 export const changePassword = password => ({ type: CHANGE_LOGIN_PASSWORD, payload: password });
 
 export const login = (callbackSuccess) => (dispatch, getState) => {
-  const { email, password } = getState().Login;
+  const { username, password } = getState().Login;
 
-  if (email === '') {
-    Alert.alert('Beleza Agendada informa:', 'Campo de email vazio.');
+  if (username === '') {
+    Alert.alert('Beleza Agendada informa:', 'Campo de nome de usuário vazio.');
   } else if (password === '') {
     Alert.alert('Beleza Agendada informa:', 'Campo de senha vazio.');
   } else {
     dispatch({ type: LOADING_LOGIN, payload: true });
 
-    firebase.auth().signInWithEmailAndPassword(email.trim(), password)
-      .then(() => {
-        callbackSuccess();
+    const data = {
+      Login: username,
+      Senha: password,
+    }
+
+    axios.post('https://beleza-agendada-api.herokuapp.com/Cliente/logar/', data)
+      .then((response) => {
         dispatch({ type: LOADING_LOGIN, payload: false });
+        console.log('True', response)
+        if (response.data) {
+          dispatch({ type: MODIFY_USER_DATA, payload: response.data[0] });
+          if (typeof callbackSuccess === 'function') callbackSuccess();
+        } else {
+          dispatch({ type: MODIFY_USER_DATA, payload: {} });
+          Alert.alert('Beleza Agendada informa:', 'Usuário ou senha inválido.')
+        }
       })
       .catch((error) => {
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email' || error.code === 'auth/wrong-password') {
-          Alert.alert('Beleza Agendada informa:', 'Email ou senha inválido!');
-          // dispatch({ type: 'ERROR_LOGIN', payload: 'Email ou senha inválido!' });
-        } else if (error.code === 'auth/network-request-failed') {
-          Alert.alert('Falha inesperada', 'Ocorreu alguma falha na conexão com o servidor. Verifique sua conexão com a internet.');
-          // dispatch({ type: 'ERROR_LOGIN', payload: 'Ocorreu alguma falha na conexão com o servidor. Verifique sua conexão com a internet.' });
-        } else {
-          // Alert.alert(error.code, error.message);
-          Alert.alert('Falha inesperada', 'Ocorreu alguma falha ao tentar autenticar. Por favor, tente novamente mais tarde.');
-        }
+        dispatch({ type: MODIFY_USER_DATA, payload: {} });
         dispatch({ type: LOADING_LOGIN, payload: false });
+        Alert.alert('Beleza Agendada informa:', 'Que pena, houve uma falha ao efetuar o login.\nTente novamente mais tarde.');
       });
   }
 };

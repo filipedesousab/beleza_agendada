@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { colors, textStyles } from '../../style';
 
 import {
-  changeEmail,
+  changeUsername,
   changePassword,
   login,
 } from './actions/LoginActions';
@@ -22,10 +22,9 @@ class AuthLogin extends Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
         <TextInput
           style={{ width: 300, ...textStyles.default }}
-          placeholder="Insira o e-mail"
-          keyboardType="email-address"
-          value={this.props.email}
-          onChangeText={this.props.changeEmail}
+          placeholder="Insira o usuário"
+          value={this.props.username}
+          onChangeText={this.props.changeUsername}
         />
         <TextInput
           style={{ width: 300, ...textStyles.default }}
@@ -64,13 +63,13 @@ class AuthLogin extends Component {
 };
 
 const mapStateToProps = state =>  ({
-  email: state.Login.email,
+  username: state.Login.username,
   password: state.Login.password,
   loading: state.Login.loading,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  changeEmail,
+  changeUsername,
   changePassword,
   login,
 }, dispatch);
