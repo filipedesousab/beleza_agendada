@@ -13,7 +13,7 @@ import {
   getServices,
   changeService,
   changeDate,
-  registerScheduling2,
+  registerScheduling,
   changeProfessional,
   changeAddress,
   changeNeighborhood,
@@ -120,8 +120,8 @@ class Scheduling extends Component {
             {this.props.professionalList.map((value, index) => {
                 return (
                   <Picker.Item
-                    label={value.Nome}
-                    value={value.Id}
+                    label={value.name}
+                    value={value.id}
                     key={`professional-${value.Id}`}
                   />
                 )
@@ -130,7 +130,7 @@ class Scheduling extends Component {
           </Picker>
         )
       }
-      return <Text style={{ marginVertical: 24, ...textStyles.default }}>Nenhum serviço disponível</Text>
+      return <Text style={{ marginVertical: 24, ...textStyles.default }}>Nenhum profissional disponível</Text>
     }
 
     return (
@@ -199,7 +199,7 @@ class Scheduling extends Component {
               style={{ flex: 1 }}
               title='Agendar'
               color={colors.button}
-              onPress={this.props.registerScheduling2}
+              onPress={this.props.registerScheduling}
             />
           </View>
         </View>
@@ -225,7 +225,7 @@ const mapDispatchToProps = dispach => bindActionCreators({
   getServices,
   changeService,
   changeDate,
-  registerScheduling2,
+  registerScheduling,
   changeProfessional,
   changeAddress,
   changeNeighborhood,

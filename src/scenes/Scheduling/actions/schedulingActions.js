@@ -1,8 +1,5 @@
 import { Alert } from 'react-native';
-import firebase from 'firebase';
 import axios from 'axios';
-import base64 from 'base-64';
-import _ from 'lodash';
 
 import {
   SERVICE_LIST,
@@ -20,15 +17,23 @@ import {
 } from './types';
 
 export const getServices = () => (dispatch) => {
-  const database = firebase.database();
-  database.ref(`/TB_SERVICO`).on('value', (snapshot) => {
-    let arrayServices = []
-    _.mapValues(snapshot.val(), (value, key) => {
-      arrayServices.push({ ...value, key });
-    });
+  axios.get('http://beleza-agendada-api.herokuapp.com/Servico/listarTodos/')
+    .then((response) => {
+      if (response.data) {
+        let services = [];
 
-    dispatch({ type: SERVICE_LIST, payload: arrayServices });
-  });
+        response.data.forEach((service, index) => {
+          services.push({ key: service.Id, description: service.Descricao })
+        })
+
+        dispatch({ type: SERVICE_LIST, payload: services });
+      } else {
+        Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar os serviços.');
+      }
+    })
+    .catch((error) => {
+      Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar os serviços.');
+    });
 };
 
 export const changeService = serviceIndex => ({ type: MODIFY_SCHEDULING_SERVICE, payload: serviceIndex });
@@ -48,7 +53,11 @@ export const changeCity = city => ({ type: MODIFY_SCHEDULING_CITY, payload: city
 export const getCities = () => (dispatch) => {
   axios.post('http://beleza-agendada-api.herokuapp.com/Municipio/listarPorEstado/', { "Uf": "PE" })
     .then((response) => {
-      dispatch({ type: MODIFY_SCHEDULING_CITY_LIST, payload: response.data });
+      if (response.data) {
+        dispatch({ type: MODIFY_SCHEDULING_CITY_LIST, payload: response.data });
+      } else {
+        Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar as cidades.');
+      }
     })
     .catch((error) => {
       Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar as cidades.');
@@ -56,41 +65,28 @@ export const getCities = () => (dispatch) => {
 }
 
 export const getProfessionals = () => (dispatch) => {
-  axios.post('http://beleza-agendada-api.herokuapp.com/Municipio/listarPorEstado/', { "Uf": "PE" })
+  axios.get('http://beleza-agendada-api.herokuapp.com/Profissional/listarTodos/')
     .then((response) => {
-      dispatch({ type: MODIFY_SCHEDULING_PROFESSIONAL_LIST, payload: [{ Id: 1, Nome: 'Josefa Maria' }] });
+      if (response.data) {
+        let professionals = [];
+
+        response.data.forEach((professional, index) => {
+          if (professional.Status === "A") {
+            professionals.push({ id: professional.Id, name: professional.Nome })
+          };
+        })
+
+        dispatch({ type: MODIFY_SCHEDULING_PROFESSIONAL_LIST, payload: professionals });
+      } else {
+        Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar os profissionais.');
+      }
     })
     .catch((error) => {
-      Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar as cidades.');
+      Alert.alert('Beleza Agendada informa:', 'Não foi possível carrgar os profissionais.');
     });
 }
 
-
 export const registerScheduling = () => (dispatch, getState) => {
-  const { listServices, serviceIndex, schedulingDate } = getState().Scheduling;
-
-  if (serviceIndex === null) {
-    Alert.alert('Beleza Agendada informa:', 'Selecione um serviço.');
-  } else if (schedulingDate === '') {
-    Alert.alert('Beleza Agendada informa:', 'Selecione uma data.');
-  } else {
-    const { email } = getState().Variables.user;
-    const emailB64 = base64.encode(email);
-    const service = listServices[serviceIndex];
-
-    firebase.database().ref(`TB_ATENDIMENTO/${emailB64}`).push({ description: service.description, serviceId: service.key, schedulingDate })
-      .then(() => {
-        Alert.alert('Beleza Agendada informa:', 'Serviço agendado');
-        dispatch({ type: MODIFY_REGISTERING, payload: false });
-      })
-      .catch(() => {
-        Alert.alert('Beleza Agendada informa:', 'Falha ao registrar o serviço');
-        dispatch({ type: MODIFY_REGISTERING, payload: false });
-      });
-  }
-};
-
-export const registerScheduling2 = () => (dispatch, getState) => {
   dispatch({ type: REGISTERING_SCHEDULING, payload: true });
 
   const {
@@ -121,23 +117,31 @@ export const registerScheduling2 = () => (dispatch, getState) => {
     const { user } = getState().Variables;
     const newDate = schedulingDate.split('/');
     const data = {
-      Cliente: user.id,
-      Profissional: professional,
-      Servico: 1,
+      Cliente: { "Id": user.Id },
+      Profissional: { "Id": professional },
+      Servico: { "Id": 1 },
       DataAgendado: `${newDate[2]}-${newDate[1]}-${newDate[0]}`,
+      DataRealizado: "",
       Endereco: address,
       Bairro: neighborhood,
       Cep: zipCode,
-      Municipio: city,
+      Municipio: { "Id": city },
+      Preco: "",
+      Desconto: "",
+      CustoAdicional: "",
+      Situacao: "",
+      CustoTransporte: "",
+      Observacao: ""
     };
 
     axios.post('http://beleza-agendada-api.herokuapp.com/Atendimento/inserir/', data)
       .then((response) => {
-        console.log(response);
-        dispatch({ type: REGISTERING_SCHEDULING, payload: false });
+        if (response.data) {
+          Alert.alert('Beleza Agendada informa:', 'Agendamento efetuado com sucesso.');
+          dispatch({ type: REGISTERING_SCHEDULING, payload: false });
+        }
       })
       .catch((error) => {
-        console.log(error);
         Alert.alert('Beleza Agendada informa:', 'Não foi possível registrar o agendamento.');
       });
   }
