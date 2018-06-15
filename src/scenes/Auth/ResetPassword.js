@@ -12,7 +12,6 @@ export default class AuthSignUp extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
-        <Text style={{ fontSize: 40, marginVertical: 30 }}>Tela de Cadastro</Text>
         <View style={{  marginVertical: 30 }}>
           <TextInput
             style={{ width: 300 }}

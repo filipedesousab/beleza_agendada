@@ -1,29 +1,30 @@
-import firebase from 'firebase';
-import base64 from 'base-64';
-import _ from 'lodash';
+import { Alert } from 'react-native';
+import axios from 'axios';
 
 import { SCHEDULING_LIST } from './types';
 
-export const listScheduleing = () => (dispatch) => {
-  const { currentUser } = firebase.auth();
-  const emailB64 = base64.encode(currentUser.email.trim());
-
-  if (currentUser.email) {
-    firebase.database().ref(`/TB_ATENDIMENTO/${emailB64}`)
-      .on('value', (snapshot) => {
-        let arrayScheduling = []
-        _.mapValues(snapshot.val(), (value, key) => {
-          if (value.status !== 'r' && value.status !== 'c') arrayScheduling.push({ ...value, key });
-        });
-
-        dispatch({ type: SCHEDULING_LIST, payload: arrayScheduling });
+export const listScheduleing = () => (dispatch, getState) => {
+  const { user } = getState().Variables;
+  axios.post(
+    'http://beleza-agendada-api.herokuapp.com/Atendimento/listarNaoConcluidos',
+    { Id: user.Id },
+  )
+    .then((response) => {
+      const schedulingList = response.data.map((scheduleing) => {
+        let arrayDate = scheduleing.DataAgendado.split('-');
+        arrayDate[2] = arrayDate[2].split(' ')[0];
+        const newDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`;
+        return {
+          key: scheduleing.Id,
+          description: scheduleing.Servico.Descricao,
+          schedulingDate: newDate,
+        };
       });
-  }
+      dispatch({ type: SCHEDULING_LIST, payload: schedulingList });
+    })
+    .catch(error => Alert.alert('Beleza Agendada informa:', 'Falha ao obter a lista dos agendamentos pendentes.'));
 };
 
 export const removeScheduleing = key => (dispach) => {
-  const { currentUser } = firebase.auth();
-  const emailB64 = base64.encode(currentUser.email.trim());
 
-  firebase.database().ref(`/TB_ATENDIMENTO/${emailB64}`).child(key).child('status').set('c');
 };
