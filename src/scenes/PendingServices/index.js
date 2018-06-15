@@ -40,7 +40,7 @@ class PeddingServices extends Component {
         return (
           <FlatList
             data={this.props.schedules}
-            renderItem={({item}) => <ListItem item={item} remove={this.props.removeScheduleing} />}
+            renderItem={({item}) => <ListItem item={item} remove={this.props.removeScheduleing} listScheduleing={this.props.listScheduleing}/>}
           />
         );
       }

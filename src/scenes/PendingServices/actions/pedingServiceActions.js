@@ -26,5 +26,10 @@ export const listScheduleing = () => (dispatch, getState) => {
 };
 
 export const removeScheduleing = key => (dispach) => {
-
+  axios.post(
+    'http://beleza-agendada-api.herokuapp.com/Atendimento/cancelar',
+    { Id: key },
+  )
+    .then(() => Alert.alert('Beleza Agendada informa:', 'Agendamento cancelado com sucesso.'))
+    .catch(() => Alert.alert('Beleza Agendada informa:', 'Falha ao tentar cancelar o agendamento.'));
 };

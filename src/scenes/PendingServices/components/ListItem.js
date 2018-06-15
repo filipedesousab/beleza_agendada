@@ -12,7 +12,10 @@ export default ListItem = (props) => {
     'Não será possível retornar após confirmar a remoção',
     [
       {text: 'Cancelar', onPress: () => false, style: 'cancel'},
-      { text: 'Confirmar', onPress: () => props.remove(props.item.key) },
+      { text: 'Confirmar', onPress: () => {
+        props.remove(props.item.key);
+        props.listScheduleing();
+      } },
     ],
     { cancelable: true },
   );
