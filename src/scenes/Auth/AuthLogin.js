@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TextInput } from 'react-native';
+import { Button, Image, View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -20,6 +20,10 @@ class AuthLogin extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.backgroundAuth }}>
+        <Image
+          style={{ width: 300, height: 115, marginVertical: 50}}
+          source={require('../../imgs/logoH.png')}
+        />
         <TextInput
           style={{ width: 300, ...textStyles.default }}
           placeholder="Insira o usuário"
