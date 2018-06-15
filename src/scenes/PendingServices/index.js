@@ -8,21 +8,14 @@ import { bindActionCreators } from 'redux';
 
 import { colors, textStyles } from '../../style';
 import ListItem from './components/ListItem';
+import Logout from '../Auth/Logout';
 import { listScheduleing, removeScheduleing } from './actions/pedingServiceActions';
 
 class PeddingServices extends Component {
   static navigationOptions = {
     title: 'Serviços Pendentes',
     headerTitleStyle: { ...textStyles.title },
-    headerRight: (
-      <TouchableHighlight
-        onPress={() => firebase.auth().signOut()}
-        underlayColor="#fff"
-        style={{ marginRight: 10 }}
-      >
-        <FontAwesome name="sign-out" size={25} color={colors.dark} />
-      </TouchableHighlight>
-    ),
+    headerRight: <Logout />,
     tabBarIcon: ({ focused, tintColor }) => (
       focused
         ? <Icon name="list" size={30} color={colors.button} />

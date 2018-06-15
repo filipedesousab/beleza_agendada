@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-datepicker'
 
 import { colors, textStyles } from '../../style';
+import Logout from '../Auth/Logout';
 
 import {
   getServices,
@@ -24,18 +25,13 @@ import {
 } from './actions/schedulingActions';
 
 class Scheduling extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = {
     title: 'Agendamento',
     headerTitleStyle: { ...textStyles.title },
-    headerRight: (
-      <TouchableHighlight
-        onPress={() => firebase.auth().signOut()}
-        underlayColor="#fff"
-        style={{ marginRight: 10 }}
-      >
-        <FontAwesome name="sign-out" size={25} color={colors.dark} />
-      </TouchableHighlight>
-    ),
+    headerRight: <Logout />,
     tabBarIcon: ({ focused, tintColor }) => (
       focused
         ? <Icon name="event" size={30} color={colors.button} />

@@ -8,21 +8,14 @@ import { bindActionCreators } from 'redux';
 
 import { colors, textStyles } from '../../style';
 import ListItem from './components/ListItem';
+import Logout from '../Auth/Logout';
 import { listScheduleingCompleted } from './actions/completedServiceActions';
 
 class CompletedServices extends Component {
   static navigationOptions = {
     title: 'Serviços Finalizados',
     headerTitleStyle: { ...textStyles.title },
-    headerRight: (
-      <TouchableHighlight
-        onPress={() => firebase.auth().signOut()}
-        underlayColor="#fff"
-        style={{ marginRight: 10 }}
-      >
-        <FontAwesome name="sign-out" size={25} color={colors.dark}/>
-      </TouchableHighlight>
-    ),
+    headerRight: <Logout />,
     tabBarIcon: ({ focused, tintColor }) => (
       focused
         ? <Icon name="playlist-add-check" size={30} color={colors.button} />
