@@ -13,8 +13,7 @@ export default ListItem = (props) => {
     [
       {text: 'Cancelar', onPress: () => false, style: 'cancel'},
       { text: 'Confirmar', onPress: () => {
-        props.remove(props.item.key);
-        props.listScheduleing();
+        props.remove(props.item.key, props.listScheduleing);
       } },
     ],
     { cancelable: true },
