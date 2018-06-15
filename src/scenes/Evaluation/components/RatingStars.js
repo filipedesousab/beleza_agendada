@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { colors, textStyles } from '../../../style';
 import { setEvaluation } from '../actions/evaluationActions';
+import { listScheduleingCompleted } from '../../CompletedServices/actions/completedServiceActions';
 import Star from './Star';
 
 class RatingStars extends Component {
@@ -32,28 +33,42 @@ class RatingStars extends Component {
           key={i}
           schedulingKey={scheduling.key}
           onPress={
-            ({ key, numberEvaluation }) => this.props.setEvaluation({ key , evaluation: numberEvaluation }, this.setState({ evaluation: numberEvaluation }))
+            ({ key, numberEvaluation }) => this.props.setEvaluation(
+              { key, evaluation: numberEvaluation },
+              () => {
+                this.setState({ evaluation: numberEvaluation });
+                this.props.listScheduleingCompleted();
+              },
+            )
           }
           update={number => this.setState({ evaluation: number })}
-        />);
+        />
+      );
     }
 
     let j = 0;
     while (j !== 5 - evaluation) {
-      j+=1;
+      j += 1;
       notEvaluated.push(
         <Star
-          number={i+j}
+          number={i + j}
           name="star"
           color="#999"
           key={j}
           schedulingKey={scheduling.key}
           onPress={
-            ({ key, numberEvaluation }) => this.props.setEvaluation({ key , evaluation: numberEvaluation }, this.setState({ evaluation: numberEvaluation }))
+            ({ key, numberEvaluation }) => this.props.setEvaluation(
+              { key, evaluation: numberEvaluation },
+              () => {
+                this.setState({ evaluation: numberEvaluation });
+                this.props.listScheduleingCompleted();
+              },
+            )
           }
           update={number => this.setState({ evaluation: number })}
           reload={this.forceUpdate}
-        />);
+        />
+      );
     }
 
     return (
@@ -63,15 +78,21 @@ class RatingStars extends Component {
           reload={this.forceUpdate}
           key={0}
           schedulingKey={scheduling.key}
-          onPress={({ key }) => this.props.setEvaluation({ key, evaluation: 0 }, () => this.setState({ evaluation: 0 }))}
+          onPress={({ key }) => this.props.setEvaluation(
+            { key, evaluation: 0 },
+            () => {
+              this.setState({ evaluation: 0 });
+              this.props.listScheduleingCompleted();
+            },
+          )}
         />
         {evaluated}
         {notEvaluated}
       </View>
-    )
+    );
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setEvaluation }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setEvaluation, listScheduleingCompleted }, dispatch);
 
 export default connect(null, mapDispatchToProps)(RatingStars);

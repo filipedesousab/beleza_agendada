@@ -18,6 +18,7 @@ export const listScheduleingCompleted = () => (dispatch, getState) => {
           key: scheduleing.Id,
           description: scheduleing.Servico.Descricao,
           schedulingDate: newDate,
+          evaluation: parseInt(scheduleing.AvaliacaoSatisfacao),
         };
       });
       dispatch({ type: SCHEDULING_LIST_COMPLETED, payload: schedulingList });
